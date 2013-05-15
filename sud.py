@@ -1,57 +1,5 @@
-#input = [1,3,2,2,None,3,3,None,1]
-#matrix = { (0,0):0,(0,1):0,(0,2):0,(1,0):0,(1,1):0,(1,2):0,(2,0):0,(2,1):0,(2,2):0 }
-#matrix = { (0,0):1,(0,1):2,(0,2):3,(1,0):4,(1,1):5,(1,2):6,(2,0):7,(2,1):8,(2,2):9 }
 
 import cProfile
-
-def printColumns():
-  print("The first column is:")
-  for i in range(3):
-    print(matrix[(i,0)])
-
-  print("The second column is:")
-  for i in range(3):
-    print(matrix[(i,1)])
-
-  print("The third column is:")
-  for i in range(3):
-    print(matrix[(i,2)])
- 
-def printRows(): 
-  print("The first row is:")
-  for i in range(3):
-    print(matrix[(0,i)])
-
-  print("The second row is:")
-  for i in range(3):
-    print(matrix[(1,i)])
-
-  print("The third row is:")
-  for i in range(3):
-    print(matrix[(2,i)])
-
-def fillMatrix():
-  #Fill one row at a time
-  for i in range(3):
-    matrix[(0,i)] = input[i]
-  j=0
-  for i in range(3,6):
-    matrix[(1,j)] = input[i]
-    j += 1
-  j=0
-  for i in range(6,9):
-    matrix[(2,j)] = input[i]
-    j += 1
-   
-def fillMatrix2():
-  for i in range(3):
-    for j in range(3):
-      matrix[(i,j)] = input[i+j]      
-
-#fillMatrix2()
-#printRows() 
-#print(matrix.values())
-
 class Board:
   def __init__(self,boardString):
     self.elements = []
@@ -168,50 +116,6 @@ class SubBoard:
     return x
           
   
-
-def solve(board):
-    location = None
-    masterBoardList = []
-    listOfUnknowns = []
-    generalSet = {'1','2','3','4','5','6','7','8','9'}
-    
-    for i in range(len(board.elements)):
-      if board.elements[i].value == '.':
-        location = board.elements[i]
-        listOfUnknowns.append(location)
-
-    print("My unknowns is")
-    for i in range(len(listOfUnknowns)):
-      print(listOfUnknowns[i].value,listOfUnknowns[i].rowNum,listOfUnknowns[i].colNum)
-
-    print("The row of the empty element is:",location.rowNum)
-    print("The column of the empty element is:",location.colNum)
-
-    while len(listOfUnknowns) != 0:
-      listOfPossibleValues = []
-      currentElement = listOfUnknowns[0]
-      rowNumber = currentElement.rowNum
-      colNumber = currentElement.colNum
-      sBNumber = currentElement.subBoardNum
-      
-      x,y,z = set(),set(),set()
-      for i in range(9):
-        x.add(board.rows[rowNumber].rowValues[i].value)
-        y.add(board.columns[colNumber].colValues[i].value)
-        z.add(board.subBoards[sBNumber].subBoardValues[i].value)
-      
-      print(x)
-      print(y)
-      print(z)
-      a = x&y&z
-      print('a is',a)
-      fin = generalSet - a
-      print("fin is",fin)
-
-      print(type(a))
-      print(a)
-      listOfUnknowns.pop()
-
 def findEmptyElement(board,eleNum):
   location = None
   for i in range(len(board.elements)):
